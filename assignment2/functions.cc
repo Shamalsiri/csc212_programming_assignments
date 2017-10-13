@@ -144,7 +144,7 @@ bool q6_palindrome(const char *str, unsigned int len)
     return result;
 }
 
-//done
+
 void q7_reverse(char *str, unsigned int len)
 {
     if(&str-len != &str)
@@ -206,7 +206,7 @@ unsigned int q10_sum_digits(unsigned int num)
     }
 }
 
-//done
+
 bool q11_r_bin_search(const int *A, unsigned int n, int k)
 {
     

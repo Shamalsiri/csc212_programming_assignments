@@ -6,7 +6,7 @@
 using namespace std;
 int main()
 {
-    /*
+    
     //Q1 -- done
     const int A[]= {9,3,2,1,15,9,8,10,9};
     unsigned int result1 = q1_mode(A,9);
@@ -16,11 +16,6 @@ int main()
     int B[] = {9,8,7,6,5,4,3,2,1};
     unsigned int result2 = q2_unique(B,9);
     cout<<"q2 :"<<result2<<endl
-    
-    //Q2 -- done
-    int B[] = {3, 4, 4, 2, 3, 1, 8, 8};//{9,8,7,6,5,4,3,2,1};
-    unsigned int result2 = q2_unique(B,8);
-    cout<<"q2 :"<<result2<<endl;
     
     //Q3 -- done
     int C[] = {9,8,7,6,5,4,3,2,1};
@@ -42,7 +37,7 @@ int main()
     bool result6 = q6_palindrome(F, 4);
     cout<<"q6 :"<<result6<<endl;
 
-    //Q7 -- done
+    //Q7 
     char G[] = "SHAMAL CAROLYN!";
     q7_reverse(G,14);
 
@@ -59,7 +54,7 @@ int main()
     unsigned int result10 = q10_sum_digits(10224);
     cout<<"q10: "<<result10<<endl;
 
-    //q11 -- done
+    //q11 
     const int I[] ={25,23,19,16,15,12,7,6,3,1};
     bool result11 = q11_r_bin_search(I, 10, 1);
     cout<<"q11:"<<result11<<endl;
@@ -79,11 +74,8 @@ int main()
     char str[]={"Hello  world hits"};
     unsigned int result15 = q15_reverse_words(str, 0);
     cout<<"q15:"<<result15<<endl;
-    */
     
-    //Q7 -- done
-    char G[] = "SHAMAL";
-    q7_reverse(G,6);
+    
   
     return 0;
     

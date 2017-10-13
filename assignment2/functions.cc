@@ -1,3 +1,5 @@
+//Shamal Siriwardana
+//URI ID: 100531147
 
 #include "functions.h"
 #include<iostream>
@@ -5,32 +7,61 @@
 
 using namespace std;
 
+//done
 unsigned int q1_mode(const int *A, unsigned int n)
 {
-    return 0;
+    int temp[n];
+    for(int i = 0; i < n; i++)
+    {
+        temp[i] = 0;
+        for(int j = 0; j <= i; j++)
+        {
+            if(A[i] == A[j])
+            {
+                temp[i]++;
+            }
+        }
+    }
+    int highest = n - 1;
+    for(int k = n - 2; k >= 0; k--)
+    {
+        if(temp[highest] < temp[k])
+        {
+            highest = k;
+        }
+    }
+    return highest;
 }
 
 //done
 unsigned int q2_unique(const int *A, unsigned int n)
 {
-    int uniqueCount =0;
-    for(int i =0; i<n; i++)
+    int temp[n];
+    for(int q =0; q<n; q++)
     {
-        bool unique = true;
-        for(int j = 0; j<n ;j++)
+        temp[q] = A[q];
+    }
+    int uniqueCount = 0;
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = i+1; j < n; j++)
         {
-            if(i!=j && A[i] == A[j])
+            if(i != j && temp[i] == temp[j])
             {
-                unique = false;
+                temp[j] = 1001;
             }
         }
-        if(unique)
+    }
+    
+    for(int k =0; k<n; k++)
+    {
+        if(temp[k] != 1001)
         {
             uniqueCount++;
         }
     }
-    return uniqueCount;
     
+    return uniqueCount;   
 }
 
 //done
@@ -73,10 +104,28 @@ unsigned int q4_insertion_sort(int *A, unsigned int n)
     return swapCount;
 }
 
+//done
 unsigned int q5_selection_sort(int *A, unsigned int n)
 {
-  
-    return 0;
+    int minIndex;
+    for(int i = 0; i< n ; i++)
+    {
+        minIndex = i;
+        for(int j = i+1; j< n; j++)
+        {
+            if(A[minIndex] > A[j])
+            {
+                minIndex = j;
+        
+            }
+        }
+        
+        unsigned int temp = A[minIndex];
+        A[minIndex] = A[i];
+        A[i] = temp;
+        
+    }
+    return n-1;
 }
 
 //done
@@ -96,48 +145,42 @@ bool q6_palindrome(const char *str, unsigned int len)
 }
 
 //done
-void q7_reverse(char*str, unsigned int len)
+void q7_reverse(char *str, unsigned int len)
 {
-    int length = strlen(str);
-    char temp = str[len-1];
-    if(len != length/2)
+    if(&str-len != &str)
     {
-        str[len-1] = str[length - len];
-        str[length - len] = temp;
-        q7_reverse(str, len-1);
+        cout<<"1"<<endl;
+        q7_reverse(str+1,  len -1);
     }
-    cout<<str<<endl;
+    
+    
 }
 
+//done
 void q8_print_reversed_letters(const char *str)
-{
-    int size = sizeof(str);
-    char subs[size-2];
-    memcpy(subs, str, size-2);
-    if (size > 0)
+{   
+    if(*str == '\0')
     {
-        if(((int)str[size-1]>96) && (int)str[size -1 ] < 123)
-        {
-            cout<<str[size-1];
-            q8_print_reversed_letters(subs);    
-        }
-        else
-        {
-            q8_print_reversed_letters(subs);
-        }
+        return;
+    }
+    q8_print_reversed_letters(str + 1);
+    if(islower(*str))
+    {
+        cout<<*str;
     }
 }
+
 //done
 unsigned long int q9_suffix_sum(unsigned int n, unsigned int s)
 {
-    unsigned int some = (n - s) + 1;
+    unsigned int startpo = (n - s) + 1;
     if(s == 1)
     {
-        return some;
+        return startpo;
     }
     else
     {
-        return some + q9_suffix_sum(n, s - 1);
+        return startpo + q9_suffix_sum(n, s - 1);
     }
 }
 
@@ -163,9 +206,38 @@ unsigned int q10_sum_digits(unsigned int num)
     }
 }
 
+//done
 bool q11_r_bin_search(const int *A, unsigned int n, int k)
 {
-    return true;
+    
+    int highMinLow = (&A[n-1] - A);
+    int mid = highMinLow/2;
+    if(n < 1)
+    {
+        return false;
+    }
+    if(A[mid] ==  k)
+    { 
+        return true;
+    }
+    else if(A[mid] > k)
+    {
+        if(*(A + mid + 2) == A[n - 1])
+        {
+            return true;
+        }  
+        return q11_r_bin_search(A + mid + 1, n - mid, k);
+        
+    }
+    else if(A[mid] < k)
+    {
+        return q11_r_bin_search(A, mid, k);
+    }
+    else
+    {
+        return false;
+    }
+    
 }
 
 //done
@@ -182,4 +254,43 @@ bool q12_sorted(const int *A, unsigned int n)
         return false;
     }
     return q12_sorted(A, n-1);
+}
+
+//done
+void q13_draw_triangle(unsigned int a, unsigned int b, unsigned int c)
+{
+    if(a <= b)
+    {
+        for (int j = 0; j < a; j++)
+        {
+            cout<<"+";
+        }
+        cout<<endl;
+        q13_draw_triangle(a + c, b, c); 
+        for(int i = 0; i< a; i++)
+        {
+            cout<<"+";
+        }
+        cout<<endl;
+    }
+
+}
+
+void q14_print_pattern(unsigned int len, unsigned int col)
+{
+    for(int i = 0; i < col; i++)
+    {
+        cout<<" ";
+    }
+    cout<<"|"<<endl;
+    
+}
+
+unsigned int q15_reverse_words(char *str, unsigned int idx)
+{
+    int length = strlen(str);
+    
+    cout<< length <<endl;
+    
+    return length;
 }

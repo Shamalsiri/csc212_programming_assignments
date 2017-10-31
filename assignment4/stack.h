@@ -9,51 +9,29 @@ class Node
 {
     private:
         Node* next;
-        //Node* prev;
-        int data;
+        long data;
         
     public:
-        Node(int d);
+        Node(long d);
         ~Node();
     
-    friend class LinkedList;
     friend class Stack;
-};
-
-class LinkedList
-{
-    private:
-        Node* head;
-        Node* tail;
-        unsigned int n_elem;
-        
-    public
-        LinkedList();
-        ~LinkedList();
-        
-        void insertAt(unsigned int index, int d);
-		int removeAt(unsigned int index);
-
-		bool find(int d);
-		void append(int d);
-		void prepend(int d);
-		int removeLast();
-		int removeFirst();
-		unsigned int getSize();
-		void clear();
-
 };
 
 class Stack
 {
     private:
-        int top;
-    public:
-        Stack();
-        ~Stack();
+        Node* head;
+        Node* tail;
+        unsigned int n_elem;
+        int top; //idk what I'll be neding this for but better safe than sorry 
         
-        long int pop();
-        void push(long val);
+    public
+        Stack();
+        ~Stack(); //need to work on the deconstructor
+
+		long int pop();//remove first
+        void push(long val);//void prepend(int d);
         bool isEmpty();
-}
+};
 #endif

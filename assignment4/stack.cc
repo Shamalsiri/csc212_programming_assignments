@@ -35,7 +35,7 @@ Stack::~Stack() //Needs to be updated
 {
     if(head != NULL && tail != NULL)
     {
-        this->clear();
+        this->pop();
     }
 }
 

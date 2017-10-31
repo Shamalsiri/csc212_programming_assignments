@@ -252,7 +252,31 @@ void LinkedList::clear()
     }
 }
 
-void push(long val)
+void Stack::push(long val)
 {
-    if()
+    //if(no linkedlist exist)
+    {
+        //create a new linkedlist
+    }
+    //prepend the value;
+}
+
+long int Stack::pop()
+{
+    //if (!isEmpty)
+    {
+        //return LinkedList::removeFirst;
+    }
+}
+
+bool Stack::isEmpty()
+{
+    if(Head == NULL && Tail == NULL)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

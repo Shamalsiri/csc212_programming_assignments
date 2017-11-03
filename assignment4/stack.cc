@@ -25,13 +25,13 @@ Stack::Stack()
     head = NULL;
     tail = NULL;
     n_elem = 0;
-    top = 0;
+    
 }
 
 /*
  * Stack Destructor
  */
-Stack::~Stack() //Needs to be updated 
+Stack::~Stack() //Needs to be updated
 {
     if(head != NULL && tail != NULL)
     {
@@ -44,7 +44,7 @@ Stack::~Stack() //Needs to be updated
  */
 void Stack::push(long d)
 {
-	// TODO
+    // TODO
     Node *prependNode = new Node(d);
     if(head == NULL && tail == NULL)
     {
@@ -62,29 +62,25 @@ void Stack::push(long d)
 /*
  * Similar to the remove first function of a LL, remove the first elem of the stack and return its data
  */
+
+
 long Stack::pop()
 {
-	//TODO
-    long headData = head -> data;
-    if (head == tail)
-    {
-        delete head;
-        head = NULL;
-        tail = NULL;
-    }
-    else
-    {
-        Node *p = head -> next;
-        delete head;
-        p = head;
-         
-    }
+    if(!head) return 0;
+    
+    long val = head -> data;
+    Node* p = head;
+    
+    head = head->next;
+    if (n_elem == 1) tail = NULL;
+    delete p;
+    
     n_elem--;
-	return headData;
+    return val;
 }
 
 /*
- * Check to see if the stack is empty and return true if it is 
+ * Check to see if the stack is empty and return true if it is
  */
 bool Stack::isEmpty()
 {
@@ -96,4 +92,11 @@ bool Stack::isEmpty()
     {
         return false;
     }
+}
+
+long Stack::peek()
+{
+    long headData = head -> data;
+    
+    return headData;
 }

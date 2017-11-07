@@ -100,3 +100,8 @@ long Stack::peek()
     
     return headData;
 }
+
+int Stack::getSize()
+{
+    return n_elem;
+}

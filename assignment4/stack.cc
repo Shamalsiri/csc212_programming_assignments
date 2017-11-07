@@ -1,3 +1,8 @@
+//Shamal Siriwardana
+//CSC 212
+//Programming Assignment 4
+//11/08/2017
+
 #include "stack.h"
 
 /*
@@ -94,12 +99,20 @@ bool Stack::isEmpty()
     }
 }
 
+/*
+ * Check the top of the Stack 
+ */
+
 long Stack::peek()
 {
     long headData = head -> data;
     
     return headData;
 }
+
+/*
+ * Return the size of stack
+ */
 
 int Stack::getSize()
 {

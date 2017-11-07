@@ -1,3 +1,8 @@
+//Shamal Siriwardana
+//CSC 212
+//Programming Assignment 4
+//11/08/2017
+
 #include <iostream>
 #include "string.h"
 #include "stack.h"
@@ -7,6 +12,8 @@ using namespace std;
 
 void infix2postfix(const char *infix, char *postfix)
 {
+    //Local Variable
+    
     Stack *i2fStack = new Stack();
     
     char mult = '*';
@@ -18,23 +25,21 @@ void infix2postfix(const char *infix, char *postfix)
     char right= ')';
     
     int infixSize = (int)strlen(infix); //need the size of the array
-    int pFCount = 0;
+    int pFCount = 0; // postfix (array) counter
     
-    for(int i = 0; i < infixSize; i++) // regular numbers
+    for(int i = 0; i < infixSize; i++) 
     {
-        if((infix[i] == '-') && (infix[i+1] != ' '))
+        if((infix[i] == '-') && (infix[i + 1] != ' ')) //Check for negative numbers 
         {
             postfix[pFCount] = '-';
             pFCount++;
         }
         
-        if((infix[i] != mult) && (infix[i] != div) && (infix[i] != carr) &&
-           (infix[i] != add ) && (infix[i] != sub) && (infix[i] != left) &&
-           (infix[i] != right) && (infix[i] != ' '))
+        if((postfix[j] > '/') && (postfix[j] < ':')) //Regular numbers
         {
             postfix[pFCount] = infix[i];
             pFCount++;
-            if(infix[i + 1] == ' ')
+            if(infix[i + 1] == ' ') //Check to see if more than 1 digit
             {
                 postfix[pFCount] = ' ';
                 pFCount++;
@@ -42,7 +47,7 @@ void infix2postfix(const char *infix, char *postfix)
             
         }
         
-        else if (infix[i] == ' ')
+        else if (infix[i] == ' ') //Nothing to do when its a space
         {
             //Do nothing 
         }
@@ -53,12 +58,12 @@ void infix2postfix(const char *infix, char *postfix)
         
         else if(infix[i] == carr) //Carrot
         {
-            i2fStack->push(carr - '0');
+            i2fStack -> push(carr - '0');
         }
         
         else if(infix[i] == mult) // Multiplication
         {
-            if(!i2fStack -> isEmpty() && i2fStack -> peek() == div - '0')
+            if(!i2fStack -> isEmpty() && i2fStack -> peek() == div - '0') //Check to see if the top of the Stack is a /
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -73,7 +78,7 @@ void infix2postfix(const char *infix, char *postfix)
         
         else if(infix[i] == div) //Division
         {
-            if(!i2fStack -> isEmpty() && i2fStack -> peek() == mult - '0')
+            if(!i2fStack -> isEmpty() && i2fStack -> peek() == mult - '0') //Check to see if the top of the Stack is a *
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -88,7 +93,7 @@ void infix2postfix(const char *infix, char *postfix)
         
         else if(infix[i] == add) // Addition
         {
-            if(!i2fStack -> isEmpty() && i2fStack -> peek() == sub - '0')
+            if(!i2fStack -> isEmpty() && i2fStack -> peek() == sub - '0') //Check to see if the top of the Stack is a -
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -96,14 +101,12 @@ void infix2postfix(const char *infix, char *postfix)
                 postfix[pFCount] = ' ';
                 pFCount++;
             }
-            
             i2fStack -> push(add - '0');
-            
         }
         
-        else if ((infix[i] == sub) && (infix[i+1] == ' ')) //Substraction
+        else if ((infix[i] == sub) && (infix[i + 1] == ' ')) //Substraction
         {
-            if(!i2fStack -> isEmpty() && i2fStack -> peek() == add - '0')
+            if(!i2fStack -> isEmpty() && i2fStack -> peek() == add - '0') //Check to see if the top of the Stack is a +
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -118,7 +121,7 @@ void infix2postfix(const char *infix, char *postfix)
         else if(infix[i] == right) //Right Parathesis
         {
             long value;
-            while(i2fStack -> peek() != left - '0')
+            while(i2fStack -> peek() != left - '0') // Add the operator to the end of the String when the Right Parathesis 
             {
                 value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -127,14 +130,15 @@ void infix2postfix(const char *infix, char *postfix)
                 pFCount++;
             }
             
-            if(i2fStack -> peek() == left - '0')
+            if(i2fStack -> peek() == left - '0') // Make sure the left Paranthesis is removed from the Stack
             {
                 value = i2fStack -> pop();
             }
         }
     }
     
-    for(int j = 0; j < i2fStack -> getSize(); j++) //Adding the rest of the stack to the array 
+    int size = i2fStack -> getSize();
+    for(int j = 0; j < size; j++) //Adding the rest of the operators on the stack to the string
     {           
             long value = i2fStack -> pop();
             char remains = value + '0';
@@ -142,104 +146,99 @@ void infix2postfix(const char *infix, char *postfix)
             pFCount++;
             postfix[pFCount] = ' ';
             pFCount++;
-        //cout<<remains<<endl;
     }
-    postfix[pFCount]='\0';
+    
+    postfix[pFCount] = '\0'; //Ending the String
 
 }
 
 long int eval_postfix(const char *postfix)
 {
-    Stack* postFixEval = new Stack;
-    long length = strlen(postfix);
+    //local variables 
+    Stack* postFixEval = new  Stack();
+    int postFixSize = (int)strlen(postfix);
     bool isNeg = false;
-    int number = 0; // could be long
+    long int number = 0;
+    int j;
     int digit;
-    int finResult = 0;
+    long left, right;
     
-    char mult = '*';
-    char div  = '/';
-    char carr = '^';
-    char add  = '+';
-    char sub  = '-';
-    
-    for(int i =0; i< length; i++)
+    for(int i = 0; i < postFixSize; i++)
     {
-        int j = i;
-        //cout<<"updated"<<endl;
-        if((postfix[i] == '-') && (postfix[i+1] != ' '))
+        j = i;
+        if((postfix[i] == '-') && (postfix[i + 1] != ' ')) //Check to see if the Number is Negative 
         {
             isNeg = true;
         }
-        while((postfix[j] != ' ') && postfix[j] != '+')
+        
+        while((postfix[j] > '/') && (postfix[j] < ':')) //Calculate numbers (one's more than 1 digit)
         {
-            //cout<<postfix[j]<<endl;
-            
-            digit = (postfix[j] - '0');
-            //cout<<"dig: "<<digit<<endl;
-            number = (number*10) + digit;
-            //Create number using digits; number =0 , (number*10) + new digit; - done
-            //if needed push the number to stack - done
-            //check to see if the number is negative; - done? // havent tested it out
+            digit = postfix[i] - '0';
+            number = (number * 10) + digit;
             j++;
+            i = j;
         }
-        if(isNeg)
+        
+        if(isNeg) //If Negaitve, make sure the number is negative 
         {
             number = number * -1;
-            isNeg = false;
         }
-        cout<<"num: "<<number<<endl;
-        postFixEval->push(number);
-        //cout<<endl<<"J :"<<j<<endl;
-        i = j;
-        //cout<<"I :"<<i<<endl;
-        number = 0;
-        if(((postfix[i] == mult) || (postfix[i] == div) || (postfix[i] == carr) ||
-           (postfix[i] == add )|| (postfix[i] == sub)) && (postfix[i+1] == ' '))
+        
+        
+        if((postfix[i] == ' ') && (postfix[i - 1] > '/') && (postfix[i - 1] < ':')) //Add the number to the Stack and reset to default
         {
-            long right = postFixEval -> pop();
-            long left  = postFixEval -> pop();
-            long result;
-            if(postfix[i] == mult)
-            {
-                result = left * right;
-                postFixEval -> push(result);
-            }
-            
-            else if(postfix[i] == div)
-            {
-                result = floor(double(left)/right);
-                postFixEval -> push(result);
-            }
-            
-            else if(postfix[i] == carr)
-            {
-                result = pow(left, right);
-                postFixEval -> push(result);
-            }
-            
-            else if(postfix[i] == add)
-            {
-                cout<<"here"<<endl;
-                cout<<left<<" "<<right<<endl;
-                result = left - right;
-                cout<<"result"<<result<<endl;
-                postFixEval -> push(result);
-            }
-            
-            else if(postfix[i] == sub)
-            {
-                result = left - right;
-                postFixEval -> push(result);     
-            }
+            postFixEval -> push(number);
+            isNeg = false;
+            number = 0;
         }
+        
+        else if((postfix[i] == '*') && (postfix[i + 1] == ' ')) //Multiply when needed
+        {
+            right = postFixEval -> pop();
+            left  = postFixEval -> pop();
+            number = left * right;
+            postFixEval -> push(number);
+            number = 0;
+        }
+        
+        else if ((postfix[i] == '^') && (postfix[i + 1] == ' ')) //Find the exponetial value when needed
+        {
+            right = postFixEval -> pop();
+            left  = postFixEval -> pop();
+            number = pow(left, right);
+            postFixEval -> push(number);
+            number = 0;
+        }
+        
+        else if ((postfix[i] == '/') && (postfix[i + 1] == ' ')) //Divide when needed
+        {
+            right = postFixEval -> pop();
+            left  = postFixEval -> pop();
+            number = floor(double (left) / right);
+            postFixEval -> push(number);
+            number = 0;
+        }
+        
+        else if ((postfix[i] == '+') && (postfix[i + 1] == ' ')) //Add when needed
+        {
+            right = postFixEval -> pop();
+            left  = postFixEval -> pop();
+            number = left + right;
+            postFixEval -> push(number);
+            number = 0;
+            
+        }
+        
+        else if ((postfix[i] == '-') && (postfix[i + 1] == ' ')) //Subract when needed
+        {
+            right = postFixEval -> pop();
+            left  = postFixEval -> pop();
+            number = left - right;
+            postFixEval -> push(number);
+            number = 0;
+        }
+             
     }
-    int stackSize = postFixEval -> getSize();
-    cout<<stackSize<<endl;
-    if(stackSize == 1)
-    {
-        finResult = postFixEval -> pop();
-    }
-    cout<<"fin: "<<finResult<<endl;
-    return finResult; 
+    number = postFixEval -> pop(); //Get the final answer of the Evaluation 
+    return number;
 }

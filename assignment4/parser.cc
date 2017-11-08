@@ -35,11 +35,19 @@ void infix2postfix(const char *infix, char *postfix)
             pFCount++;
         }
         
-        if((postfix[j] > '/') && (postfix[j] < ':')) //Regular numbers
+        if((infix[i] == '+') && (infix[i + 1] != ' ')) //Check for +## 
+        {
+            postfix[pFCount] = '+';
+            pFCount++;
+        }
+        
+        if((infix[i] != mult) && (infix[i] != div) && (infix[i] != carr) &&
+            (infix[i] != add ) && (infix[i] != sub) && (infix[i] != left) &&
+            (infix[i] != right) && (infix[i] != ' ')) //Regular numbers
         {
             postfix[pFCount] = infix[i];
             pFCount++;
-            if(infix[i + 1] == ' ') //Check to see if more than 1 digit
+            if((infix[i + 1] == ' ') || (infix[i + 1] == '\0')) //Check to see if more than 1 digit
             {
                 postfix[pFCount] = ' ';
                 pFCount++;
@@ -56,14 +64,14 @@ void infix2postfix(const char *infix, char *postfix)
             i2fStack -> push(left - '0');
         }
         
-        else if(infix[i] == carr) //Carrot
+        else if((infix[i] == carr) && (infix[i + 1] == ' ')) //Carrot
         {
             i2fStack -> push(carr - '0');
         }
         
-        else if(infix[i] == mult) // Multiplication
+        else if((infix[i] == mult) && (infix[i + 1] == ' '))// Multiplication
         {
-            if(!i2fStack -> isEmpty() && i2fStack -> peek() == div - '0') //Check to see if the top of the Stack is a /
+            while(!i2fStack -> isEmpty() && ((i2fStack -> peek() == div - '0') || (i2fStack -> peek() == carr - '0')))//Check to see if the top of the Stack is a /
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -76,9 +84,9 @@ void infix2postfix(const char *infix, char *postfix)
             i2fStack -> push(mult - '0');
         }
         
-        else if(infix[i] == div) //Division
+        else if((infix[i] == div) && (infix[i + 1] == ' ')) //Division
         {
-            if(!i2fStack -> isEmpty() && i2fStack -> peek() == mult - '0') //Check to see if the top of the Stack is a *
+            while(!i2fStack -> isEmpty() && ((i2fStack -> peek() == mult - '0') || (i2fStack -> peek() == carr - '0')))//Check to see if the top of the Stack is a *
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -91,9 +99,9 @@ void infix2postfix(const char *infix, char *postfix)
             i2fStack -> push(div - '0');
         }
         
-        else if(infix[i] == add) // Addition
+        else if((infix[i] == add) && (infix[i + 1] == ' ')) // Addition
         {
-            if(!i2fStack -> isEmpty() && i2fStack -> peek() == sub - '0') //Check to see if the top of the Stack is a -
+            while(!i2fStack -> isEmpty() && i2fStack -> peek() != left - '0') //Check to see if the top of the Stack is a -
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -106,7 +114,7 @@ void infix2postfix(const char *infix, char *postfix)
         
         else if ((infix[i] == sub) && (infix[i + 1] == ' ')) //Substraction
         {
-            if(!i2fStack -> isEmpty() && i2fStack -> peek() == add - '0') //Check to see if the top of the Stack is a +
+            while(!i2fStack -> isEmpty() && i2fStack -> peek() != left - '0') //Check to see if the top of the Stack is a +
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -148,7 +156,7 @@ void infix2postfix(const char *infix, char *postfix)
             pFCount++;
     }
     
-    postfix[pFCount] = '\0'; //Ending the String
+    postfix[pFCount - 1] = '\0'; //Ending the String
 
 }
 
@@ -192,7 +200,7 @@ long int eval_postfix(const char *postfix)
             number = 0;
         }
         
-        else if((postfix[i] == '*') && (postfix[i + 1] == ' ')) //Multiply when needed
+        else if((postfix[i] == '*') && ((postfix[i + 1] == ' ') || postfix[i + 1] == '\0')) //Multiply when needed
         {
             right = postFixEval -> pop();
             left  = postFixEval -> pop();
@@ -201,7 +209,7 @@ long int eval_postfix(const char *postfix)
             number = 0;
         }
         
-        else if ((postfix[i] == '^') && (postfix[i + 1] == ' ')) //Find the exponetial value when needed
+        else if ((postfix[i] == '^') && ((postfix[i + 1] == ' ') || postfix[i + 1] == '\0')) //Find the exponetial value when needed
         {
             right = postFixEval -> pop();
             left  = postFixEval -> pop();
@@ -210,7 +218,7 @@ long int eval_postfix(const char *postfix)
             number = 0;
         }
         
-        else if ((postfix[i] == '/') && (postfix[i + 1] == ' ')) //Divide when needed
+        else if ((postfix[i] == '/') && ((postfix[i + 1] == ' ') || postfix[i + 1] == '\0')) //Divide when needed
         {
             right = postFixEval -> pop();
             left  = postFixEval -> pop();
@@ -219,7 +227,7 @@ long int eval_postfix(const char *postfix)
             number = 0;
         }
         
-        else if ((postfix[i] == '+') && (postfix[i + 1] == ' ')) //Add when needed
+        else if ((postfix[i] == '+') && ((postfix[i + 1] == ' ') || postfix[i + 1] == '\0')) //Add when needed
         {
             right = postFixEval -> pop();
             left  = postFixEval -> pop();
@@ -229,7 +237,7 @@ long int eval_postfix(const char *postfix)
             
         }
         
-        else if ((postfix[i] == '-') && (postfix[i + 1] == ' ')) //Subract when needed
+        else if ((postfix[i] == '-') && ((postfix[i + 1] == ' ') || postfix[i + 1] == '\0')) //Subract when needed
         {
             right = postFixEval -> pop();
             left  = postFixEval -> pop();

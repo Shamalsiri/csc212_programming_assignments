@@ -71,7 +71,8 @@ void infix2postfix(const char *infix, char *postfix)
         
         else if((infix[i] == mult) && (infix[i + 1] == ' '))// Multiplication
         {
-            while(!i2fStack -> isEmpty() && ((i2fStack -> peek() == div - '0') || (i2fStack -> peek() == carr - '0')))//Check to see if the top of the Stack is a /
+            while(!i2fStack -> isEmpty() && ((i2fStack -> peek() == div - '0') || (i2fStack -> peek() == carr - '0') 
+                                             || (i2fStack -> peek() == mult - '0')))//Check to see if the top of the Stack is a /
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';
@@ -86,7 +87,8 @@ void infix2postfix(const char *infix, char *postfix)
         
         else if((infix[i] == div) && (infix[i + 1] == ' ')) //Division
         {
-            while(!i2fStack -> isEmpty() && ((i2fStack -> peek() == mult - '0') || (i2fStack -> peek() == carr - '0')))//Check to see if the top of the Stack is a *
+            while(!i2fStack -> isEmpty() && ((i2fStack -> peek() == mult - '0') || (i2fStack -> peek() == carr - '0') 
+                                            || (i2fStack -> peek() == div -'0')))//Check to see if the top of the Stack is a *
             {
                 long value = i2fStack -> pop();
                 postfix[pFCount] = value + '0';

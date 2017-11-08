@@ -187,6 +187,7 @@ long int eval_postfix(const char *postfix)
             number = (number * 10) + digit;
             j++;
             i = j;
+            //cout<<number<<endl;
         }
         
         if(isNeg) //If Negaitve, make sure the number is negative 
@@ -195,7 +196,8 @@ long int eval_postfix(const char *postfix)
         }
         
         
-        if((postfix[i] == ' ') && (postfix[i - 1] > '/') && (postfix[i - 1] < ':')) //Add the number to the Stack and reset to default
+        if(((postfix[i] == ' ') || (postfix[i] == '\0')) && 
+           (postfix[i - 1] > '/') && (postfix[i - 1] < ':')) //Add the number to the Stack and reset to default
         {
             postFixEval -> push(number);
             isNeg = false;

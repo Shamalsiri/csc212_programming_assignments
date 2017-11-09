@@ -12,7 +12,7 @@ The list above shows operators in order of precedence from lower to higher. Oper
 
 Each number in an arithmetic expression is an integer number that may contain multiple digits and may be positive or negative. For example, ` 3 345 -129 0 +321 -1 ` are all valid numbers.
 
-```In this assignment, you can assume that all arithmetic expressions (infix and postfix) must have 0 leading and trailing whitespaces. Furthermore, all tokens in an expression must be separated by exactly 1 whitespace.```
+In this assignment, you can assume that all arithmetic expressions (infix and postfix) must have 0 leading and trailing whitespaces. Furthermore, all tokens in an expression must be separated by exactly 1 whitespace.```
 
 ***Infix Notation*** is the usual way to write arithmetic expressions in which every operator appears between two operands. More formally, an infix expression is recursively defined as follows:
 

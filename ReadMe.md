@@ -18,7 +18,7 @@ The following repository contains the solutions I came up for programing assignm
     - Use of pointers
     
 - Programming Assignment 4
-    - Implementation of a stack
+    - Implementation of a stack in `C/C++`
     - Use of nodes 
     - Convert infix mathematical expression to postfix
     - Solve postfix mathematical expression

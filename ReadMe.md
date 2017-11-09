@@ -16,3 +16,10 @@ The following repository contains the solutions I came up for programing assignm
     - Use of arrays
     - Use of string.h library
     - Use of pointers
+    
+- Programming Assignment 4
+    - Implementation of a stack
+    - Use of nodes 
+    - Convert infix mathematical expression to postfix
+    - Solve postfix mathematical expression
+    
